@@ -32,11 +32,11 @@ class FlowModel(nn.Module):
         self.register_buffer("pixel_mean", torch.Tensor([123.675, 116.28, 103.53]).view(-1, 1, 1), False)
         self.register_buffer("pixel_std", torch.Tensor([58.395, 57.12, 57.375]).view(-1, 1, 1), False)
         if cfg.sam_scale == 'H':
-            self.sam_encoder = get_encoder(ft_ckpt=cfg.ft_ver)
+            self.sam_encoder = get_encoder(ft_ckpt=cfg.ft_ver, checkpoint=cfg.sam_checkpoint)
         elif cfg.sam_scale == 'B':
-            self.sam_encoder = get_encoder_base()
+            self.sam_encoder = get_encoder_base(checkpoint=cfg.sam_checkpoint)
         else:
-            self.sam_encoder = get_encoder_tiny()
+            self.sam_encoder = get_encoder_tiny(checkpoint=cfg.sam_checkpoint)
         self.sam_encoder.requires_grad_(False)
 
         if cfg.weighted_add:

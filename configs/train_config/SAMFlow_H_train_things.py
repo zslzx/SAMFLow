@@ -9,17 +9,16 @@ _CN.batch_size = 3
 _CN.sum_freq = 100
 _CN.val_freq = 5000000
 _CN.image_size = [432, 960]
-_CN.add_noise = False
+_CN.add_noise = True
 _CN.critical_params = []
+_CN.freeze_bn = False
 
-
-_CN.transformer = 'SAMFlow_tiny'
+_CN.transformer = 'SAMFlow_H'
 
 #######################################
-_CN.model_type = 'SAMFlowtiny'
 _CN.FlowModel = CN()
 _CN.FlowModel.sam_checkpoint = None
-_CN.FlowModel.freeze_bn = True
+_CN.FlowModel.freeze_bn = False
 _CN.FlowModel.pe = 'linear'
 _CN.FlowModel.dropout = 0.0
 _CN.FlowModel.encoder_latent_dim = 256 # in twins, this is 256
@@ -49,12 +48,11 @@ _CN.FlowModel.add_flow_token = True
 _CN.FlowModel.use_mlp = False
 _CN.FlowModel.vertical_conv = False
 _CN.FlowModel.ft_ver = False
-_CN.FlowModel.sam_scale = 'tiny'
-_CN.FlowModel.weighted_add = True
+_CN.FlowModel.sam_scale = 'H'
+_CN.FlowModel.weighted_add = False
 
 # decoder
-_CN.FlowModel.decoder_depth = 32
-
+_CN.FlowModel.decoder_depth = 12
 _CN.FlowModel.critical_params = ['cost_heads_num', 'vert_c_dim', 'cnet', 'pretrain' , 'add_flow_token', 'encoder_depth', 'gma', 'cost_encoder_res']
 
 ### TRAINER
@@ -67,5 +65,7 @@ _CN.trainer.clip = 1.0
 _CN.trainer.num_steps = 120000
 _CN.trainer.epsilon = 1e-8
 _CN.trainer.anneal_strategy = 'linear'
+_CN.trainer.freeze_bn = False
+_CN.trainer.accumulate_grad_batches = 1
 def get_cfg():
     return _CN.clone()

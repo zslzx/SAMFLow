@@ -12,11 +12,13 @@ _CN.image_size = [432, 960]
 _CN.add_noise = False
 _CN.critical_params = []
 
+
 _CN.transformer = 'SAMFlow_B'
 
 #######################################
 _CN.model_type = 'SAMFlow_B'
 _CN.FlowModel = CN()
+_CN.FlowModel.sam_checkpoint = None
 _CN.FlowModel.freeze_bn = True
 _CN.FlowModel.pe = 'linear'
 _CN.FlowModel.dropout = 0.0
